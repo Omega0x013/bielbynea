@@ -1,0 +1,27 @@
+{
+  "name": "bielbynea",
+  "version": "1.0.0",
+  "description": "NEA Backend",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omega0x013/bielbynea.git"
+  },
+  "author": "Xander Bielby",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/omega0x013/bielbynea/issues"
+  },
+  "homepage": "https://github.com/omega0x013/bielbynea#readme",
+  "dependencies": {
+    "@google-cloud/firestore": "^5.0.2",
+    "@omega0x013/flat-express": "^1.1.1",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.2"
+  }
+}
