@@ -6,6 +6,8 @@
 
 export default "/static/view.html";
 
+// export default flat({ "/thread/:thread "})
+
 /*
 // Mnemonic for verifying the user
 if (req.cookies.username && req.cookies.token) {
