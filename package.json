@@ -22,6 +22,7 @@
     "@google-cloud/firestore": "^5.0.2",
     "@omega0x013/flat-express": "^1.1.1",
     "cookie-parser": "^1.4.6",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "uuid": "^8.3.2"
   }
 }

@@ -13,20 +13,28 @@ import { Firestore } from "@google-cloud/firestore";
 
 // I'm painfully aware of how bad practice globals are, but in this case it is
 // a constant that simply needs to be accessed across the entire namespace.
-global.db = new Firestore({
+global.db = {};
+global.db.conn = new Firestore({
   projectId: "bielbynea",
   keyFilename: "key.json",
 });
+
+global.db.users = global.db.conn.collection("users");
+global.db.threads = global.db.conn.collection("threads");
 
 const app = express(); // create the app object
 
 // pre-route middleware
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use("/static", express.static("static"));
 
 // routes
 app.use(routes);
+
+// terminator
+app.use((req, res) => res.end());
 
 // post-route setup
 app.set("trust proxy", true); // Allow HTTPS in the google cloud environment

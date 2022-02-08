@@ -5,3 +5,19 @@
  */
 
 export default "/static/view.html";
+
+/*
+// Mnemonic for verifying the user
+if (req.cookies.username && req.cookies.token) {
+const query = await db.users.where("username", "==", req.cookies.username).get();
+if (!query.empty) {
+  const doc = query.docs[0];
+  if (doc.data().token == req.cookies.token) {
+    /**
+     * User is validated
+     * /
+   }
+  }
+}
+res.status(401).json({error: "credentials-invalid"})
+*/
