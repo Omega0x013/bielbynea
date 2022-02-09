@@ -100,6 +100,7 @@ export default {
               res.cookie("username", req.body.username);
               res.cookie("token", token);
               res.cookie("nsfw", doc.data().nsfw);
+              res.json({ message: "success" });
               res.status(200);
               break;
             }
