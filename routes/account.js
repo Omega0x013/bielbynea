@@ -81,6 +81,7 @@ export default {
      * - application/x-www-form-urlencoded
      */
     res.type("application/json");
+    console.log(req.body)
     switch (req.body.action) {
       case "login":
         if (req.body.username && req.body.password) {
