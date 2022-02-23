@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>words.</title>
+	<title>words. - New Post</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="words. - A home for poets.">
@@ -21,29 +21,32 @@
 		<label for="bmenug" class="burger pseudo button">&#8801;</label>
 
 		<div class="menu">
-			<a class="pseudo button" id="account" href="/account"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-					height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
-					<path fill-rule="evenodd"
-						d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
-					<path fill-rule="evenodd"
-						d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
-				</svg> Log In</a>
-			<a class="pseudo button" href="/create"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-					fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-					<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-					<path
-						d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-				</svg> New</a>
-			<a class="pseudo button" href="/search"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-					fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-					<path
-						d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-				</svg> Search</a>
+			<a class="pseudo button" href="/account" id="account">Log In</a>
+			<a class="pseudo button" href="/create">New Post</a>
+			<a class="pseudo button" href="/search">Search</a>
 		</div>
 	</nav>
 	<!--
 		BODY
 	-->
+	<article style="top: 4rem" class="card off-sixth two-third center">
+		<header style="font-weight: normal">
+			<div class="full">
+				<h1>New Post</h1>
+				<p style="font-size:0.75rem;">By submitting a post you agree that it complies with the <a
+						href="/static/terms/terms-of-use.html">Terms of Use</a> and with the <a
+						href="/static/terms/privacy-policy">Privacy Policy</a>, and does not infringe any Copyrighted
+					works. Unmarked NSFW will be removed.</p>
+			</div>
+			<form id="post" method="post" action="/create" class="full">
+				<input name="nsfw" id="nsfw" class="stack" type="checkbox">
+				<label for="nsfw" class="checkable stack">Mark as NSFW</label>
+				<input name="title" type="text" class="stack" placeholder="Title">
+				<textarea name="body" class="stack" placeholder="Body" style="resize: vertical !important"></textarea>
+				<input type="submit" value="New Post" class="stack" id="submit-button">
+			</form>
+		</header>
+	</article>
 </body>
 <script>
 	// https://www.30secondsofcode.org/js/s/parse-cookie
@@ -56,11 +59,34 @@
 			}, {});
 	const cookies = parseCookie(document.cookie);
 	if (cookies.username) {
-		u("#account").html(`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-</svg> ${cookies.username}`);
+		u("#account").html(cookies.username);
 	}
+
+	// This function returns a closure that makes the request when called
+	const sendRequest = (target, original) => async e => {
+		const data = await fetch('/create', {
+			method: 'POST', body: u(e.target).serialize(),
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded"
+			}
+		}).then(res => res.json());
+		const submit = u(target);
+		if (data.message) {
+			setTimeout(() => window.location.assign("/view/" + data.message), 100);
+			submit.addClass("success");
+		}
+		else {
+			submit.addClass("error")
+			if (data.error == "invalid-credentials");
+			submit.attr("value", data.error);
+			setTimeout(() => {
+				submit.removeClass("error")
+				submit.attr("value", original);
+			}, 780); // In honour of Telesto
+		}
+	}
+
+	u("#post").handle("submit", sendRequest("#submit-button", "New Post"));
 </script>
 
 </html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>words. - Create Account</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="words. - A home for poets.">
+  <link rel="icon" type="image/icon" sizes="16x16"
+    href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABXklEQVRYR8WVvU3GMBCG7218lkCCCaCDMVgESlgBOqCDFaCERRiDEiYACaTYzaEvEL78OP5N5DSRk/M9T+z4DlT5QmU+OQVE6zsSuXTIfcOYXZ+0MH8R0c4kBrhH01yNn08EhFmCqwJcoGke+3Gi9TmJPITmwpgBczCIgm8J7zDmcDMU5jciOgjBu/d9iX+BRPhvLuCkvYu8xMLHEq2AMBsiUqlJCuMtjOFOILzvhTTX9M1W1BcQrW9I5HqFDwynBG5RX4D5iIhew7qrRBzX/wf+jmHlU6DUBwF7qyzyXFKRT1i7X1YJC4y7crwVUOqJgNOCnPFTRZ5h7VlbzQcdLaYTxmNmI53NqIvOakoJUt52vLbEGD7ZgjW3wwX3CixZH+bgQYElJHzwKIESiRA8WiBHIgaeJJAiEQtPFoiRSIFnCfgkUuHZAi6JHHiRQF8iF14skNAC5hvTEklKcvwAvRmNch+5HHcAAAAASUVORK5CYII=">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+  <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
+</head>
+
+<body>
+  <nav>
+    <a href="/" class="brand">words.</a>
+
+    <!-- responsive-->
+    <input id="bmenug" type="checkbox" class="show">
+    <label for="bmenug" class="burger pseudo button">&#8801;</label>
+
+    <div class="menu">
+      <a class="pseudo button" href="/account" id="account">Log In</a>
+      <a class="pseudo button" href="/create">New Post</a>
+      <a class="pseudo button" href="/search">Search</a>
+    </div>
+  </nav>
+  <article class="card two-third off-sixth center" style="top: 4rem">
+    <header>
+      <form class="full" id="create" action="/account" method="post">
+        <span class="stack" style="font-weight:normal">By creating an account, you agree to adhere to words.'s <a
+            href="/static/terms/terms-of-use.html">Terms of Use</a> and <a
+            href="/static/terms/privacy-policy.html">Privacy
+            Policy</a></span>
+        <span class="stack">
+          The key points are as follows:
+        </span>
+        <ul>
+          <li>You must be 13 or older to create an account</li>
+        </ul>
+        <input class="stack" type="text" name="username" placeholder="Username" required>
+        <input class="stack" type="password" name="password1" placeholder="Password" required>
+        <input class="stack" type="password" name="password2" placeholder="Password (Repeat)" required>
+        <input class="stack button" type="submit" value="Create Account" class="full" id="submitbutton">
+        <a class="stack button pseudo" href="/account" style="font-weight: lighter;">Log In</a>
+      </form>
+    </header>
+  </article>
+</body>
+<script>
+  // https://www.30secondsofcode.org/js/s/parse-cookie
+  const parseCookie = str =>
+    str
+      .split(';')
+      .map(v => v.split('=')).reduce((acc, v) => {
+        acc[decodeURIComponent(v[0]?.trim())] = decodeURIComponent(v[1]?.trim());
+        return acc;
+      }, {});
+  const cookies = parseCookie(document.cookie);
+  if (cookies.username) {
+    u("#account").html(cookies.username);
+  }
+
+  const sendRequest = (target, original) => async e => {
+    const body = u(e.target).serialize() + "&action=create";
+    const data = await fetch('/account', {
+      method: 'POST', body,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    }).then(res => res.json());
+    const submit = u(target);
+    if (data.message) {
+      setTimeout(() => window.location.assign("/account"), 100);
+      submit.addClass("success");
+    }
+    else {
+      submit.addClass("error");
+      submit.attr("value", data.error);
+      setTimeout(() => {
+        submit.removeClass("error")
+        submit.attr("value", original);
+      }, 780); // In honour of Telesto
+    }
+  }
+
+  u("#create").handle("submit", sendRequest("#submitbutton", "Create Account"));
+</script>
+
+</html>

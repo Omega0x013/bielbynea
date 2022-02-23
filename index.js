@@ -13,14 +13,16 @@ import { Firestore } from "@google-cloud/firestore";
 
 // I'm painfully aware of how bad practice globals are, but in this case it is
 // a constant that simply needs to be accessed across the entire namespace.
-global.db = {};
-global.db.conn = new Firestore({
-  projectId: "bielbynea",
-  keyFilename: "key.json",
-});
+global.db = {
+  conn: new Firestore({
+    projectId: "bielbynea",
+    keyFilename: "key.json",
+  }),
+};
 
 global.db.users = global.db.conn.collection("users");
-global.db.threads = global.db.conn.collection("threads");
+global.db.posts = global.db.conn.collection("posts");
+global.db.comments = global.db.conn.collection("comments");
 
 const app = express(); // create the app object
 

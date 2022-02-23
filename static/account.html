@@ -2,65 +2,206 @@
 <html>
 
 <head>
-	<title>words.</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="words. - A home for poets.">
-	<link rel="icon" type="image/icon" sizes="16x16"
-		href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABXklEQVRYR8WVvU3GMBCG7218lkCCCaCDMVgESlgBOqCDFaCERRiDEiYACaTYzaEvEL78OP5N5DSRk/M9T+z4DlT5QmU+OQVE6zsSuXTIfcOYXZ+0MH8R0c4kBrhH01yNn08EhFmCqwJcoGke+3Gi9TmJPITmwpgBczCIgm8J7zDmcDMU5jciOgjBu/d9iX+BRPhvLuCkvYu8xMLHEq2AMBsiUqlJCuMtjOFOILzvhTTX9M1W1BcQrW9I5HqFDwynBG5RX4D5iIhew7qrRBzX/wf+jmHlU6DUBwF7qyzyXFKRT1i7X1YJC4y7crwVUOqJgNOCnPFTRZ5h7VlbzQcdLaYTxmNmI53NqIvOakoJUt52vLbEGD7ZgjW3wwX3CixZH+bgQYElJHzwKIESiRA8WiBHIgaeJJAiEQtPFoiRSIFnCfgkUuHZAi6JHHiRQF8iF14skNAC5hvTEklKcvwAvRmNch+5HHcAAAAASUVORK5CYII=">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
-	<script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
+  <title>words. - Account</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="words. - A home for poets.">
+  <link rel="icon" type="image/icon" sizes="16x16"
+    href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABXklEQVRYR8WVvU3GMBCG7218lkCCCaCDMVgESlgBOqCDFaCERRiDEiYACaTYzaEvEL78OP5N5DSRk/M9T+z4DlT5QmU+OQVE6zsSuXTIfcOYXZ+0MH8R0c4kBrhH01yNn08EhFmCqwJcoGke+3Gi9TmJPITmwpgBczCIgm8J7zDmcDMU5jciOgjBu/d9iX+BRPhvLuCkvYu8xMLHEq2AMBsiUqlJCuMtjOFOILzvhTTX9M1W1BcQrW9I5HqFDwynBG5RX4D5iIhew7qrRBzX/wf+jmHlU6DUBwF7qyzyXFKRT1i7X1YJC4y7crwVUOqJgNOCnPFTRZ5h7VlbzQcdLaYTxmNmI53NqIvOakoJUt52vLbEGD7ZgjW3wwX3CixZH+bgQYElJHzwKIESiRA8WiBHIgaeJJAiEQtPFoiRSIFnCfgkUuHZAi6JHHiRQF8iF14skNAC5hvTEklKcvwAvRmNch+5HHcAAAAASUVORK5CYII=">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+  <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
+  <script src="/static/renderpost.js"></script>
 </head>
 
 <body>
-	<nav>
-		<a href="/" class="brand">words.</a>
+  <nav>
+    <a href="/" class="brand">words.</a>
 
-		<!-- responsive-->
-		<input id="bmenug" type="checkbox" class="show">
-		<label for="bmenug" class="burger pseudo button">&#8801;</label>
+    <!-- responsive-->
+    <input id="bmenug" type="checkbox" class="show">
+    <label for="bmenug" class="burger pseudo button">&#8801;</label>
 
-		<div class="menu">
-			<a class="pseudo button" id="account" href="/account"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-					height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
-					<path fill-rule="evenodd"
-						d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
-					<path fill-rule="evenodd"
-						d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
-				</svg> Log In</a>
-			<a class="pseudo button" href="/create"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-					fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-					<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-					<path
-						d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-				</svg> New</a>
-			<a class="pseudo button" href="/search"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-					fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-					<path
-						d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-				</svg> Search</a>
-		</div>
-	</nav>
-	<!--
-		BODY
-	-->
+    <div class="menu">
+      <a class="pseudo button" href="/account" id="account">Log In</a>
+      <a class="pseudo button" href="/create">New Post</a>
+      <a class="pseudo button" href="/search">Search</a>
+    </div>
+  </nav>
+  <article class="card two-third off-sixth center" style="top:4rem">
+    <header style="font-weight: normal">
+      <div class="tabs three">
+        <input id="tab-1" type="radio" name="tab-group" checked>
+        <label for="tab-1" class="pseudo button toggle">Profile</label>
+        <input id="tab-2" type="radio" name="tab-group">
+        <label for="tab-2" class="pseudo button toggle">Settings</label>
+        <input id="tab-3" type="radio" name="tab-group">
+        <label for="tab-3" class="pseudo button toggle">Information</label>
+        <div class="row">
+          <!--
+            Profile Page
+          -->
+          <div>
+            <article class="card stack">
+              <header>
+                <h1 class="stack" id="profile"></h1>
+                <span class="stack">
+                  <span class="label" id="nsfw-label">SFW</span>
+                  <span class="label" id="points">Points</span>
+                </span>
+                <p class="stack" id="bio-text" style="font-weight: normal"></p>
+              </header>
+            </article>
+            <article class="card stack">
+              <header>
+                <a class="button warning"
+                  href='javascript:(function(){document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); }); window.location.reload(); })();'>Log
+                  Out</a>
+              </header>
+            </article>
+          </div>
+          <!--
+            Settings Page
+          -->
+          <div>
+            <h1 class="stack">Settings</h1>
+            <div class="stack">
+              <div class="full">
+                <article class="stack">
+                  <header>
+                    <form id="change-nsfw" method="post" action="/account">
+                      <h2 class="stack">NSFW</h2>
+                      <span class="stack" style="font-weight: normal">By enabling NSFW, you confirm you are over 18
+                        years of age and would like to see Not Safe For Work content.</span>
+                      <article class="stack">
+                        <header>
+                          <input type="radio" id="nsfw-enable" name="nsfw" value="on">
+                          <label for="nsfw-enable" class="checkable">Enable</label>
+                          <input type="radio" id="nsfw-disable" name="nsfw" value="off">
+                          <label for="nsfw-disable" class="checkable">Disable</label>
+                        </header>
+                      </article>
+                      <input class="stack button" type="submit" value="Change NSFW" id="change-nsfw-button">
+                    </form>
+                  </header>
+                </article>
+                <hr>
+                <article>
+                  <header>
+                    <form id="change-password" method="post" action="/account">
+                      <h2 class="stack">Password</h2>
+                      <span class="stack" style="font-weight: normal">You can change your password here, be careful not
+                        to forget it!</span>
+                      <input class="stack" type="password" name="password1" placeholder="New Password">
+                      <input class="stack" type="password" name="password2" placeholder="Repeat New Password">
+                      <input class="stack button" type="submit" value="Change Password" id="change-password-button">
+                    </form>
+                  </header>
+                </article>
+                <hr>
+                <article>
+                  <header>
+                    <form id="change-bio" method="post" action="/account">
+                      <h2>Bio</h2>
+                      <span class="stack" style="font-weight: normal">Your bio is what everyone can see when they look
+                        at your profile.</span>
+                      <input class="stack" type="text" name="bio" id="bio" placeholder="Change Bio">
+                      <input class="stack button" type="submit" value="Change Bio" id="change-bio-button">
+                    </form>
+                  </header>
+                </article>
+              </div>
+            </div>
+          </div>
+          <div>
+            <article class="card">
+              <header>
+                <h1>Information</h1>
+                <ul>
+                  <li><a href="/static/terms/terms-of-use.html">Terms of Use</a></li>
+                  <li><a href="/static/terms/privacy-policy.html">Privacy Policy</a></li>
+                </ul>
+              </header>
+            </article>
+          </div>
+        </div>
+      </div>
+    </header>
+  </article>
 </body>
 <script>
-	// https://www.30secondsofcode.org/js/s/parse-cookie
-	const parseCookie = str =>
-		str
-			.split(';')
-			.map(v => v.split('=')).reduce((acc, v) => {
-				acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
-				return acc;
-			}, {});
-	const cookies = parseCookie(document.cookie);
-	if (cookies.username) {
-		u("#account").html(`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-</svg> ${cookies.username}`);
-	}
+  // https://www.30secondsofcode.org/js/s/parse-cookie
+  const parseCookie = str =>
+    str
+      .split(';')
+      .map(v => v.split('=')).reduce((acc, v) => {
+        acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+        return acc;
+      }, {});
+  const cookies = parseCookie(document.cookie);
+  if (cookies.username) {
+    u("#account").html(cookies.username);
+  }
+
+  fetch('/account', {
+    headers: {
+      "Accept": "application/json"
+    }
+  }).then(async res => {
+    const body = await res.json();
+    if (body) {
+      // Profile Page
+      u("#bio-text").html(body.bio);
+      u("#profile").html(cookies.username);
+      u("#points").addClass(body.points == 3 ? "success" : body.points == 2 ? "warning" : "error");
+      u("#points").html(body.points);
+      if (body.nsfw) {
+        u("#nsfw-label").html("NSFW");
+        u("#nsfw-label").addClass("error");
+      } else {
+        u("#nsfw-label").html("SFW");
+        u("#nsfw-label").addClass("success");
+      }
+
+      // Settings Page
+      u("#bio").attr("value", body.bio);
+      u("#username").attr("value", cookies.username);
+    }
+  });
+
+  // This function returns a closure that makes the request when called
+  const sendRequest = (target, original, success) => async e => {
+    const body = u(e.target).serialize() + "&action=set";
+    const data = await fetch('/account', {
+      method: 'POST', body,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    }).then(res => res.json());
+    const submit = u(target);
+    if (data.message) {
+      submit.addClass("success");
+      fetch("/account", {
+        method: 'POST',
+        body: 'action=refresh',
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      }).then(window.location.assign("/account"));
+    }
+    else {
+      submit.addClass("error")
+      if (data.error == "invalid-credentials");
+      submit.attr("value", data.error);
+      setTimeout(() => {
+        submit.removeClass("error")
+        submit.attr("value", original);
+      }, 780); // In honour of Telesto
+    }
+  }
+
+  u("#change-password").handle("submit", sendRequest("#change-password-button", "Change Password", "Password Changed"));
+  u("#change-bio").handle("submit", sendRequest("#change-bio-button", "Change Bio", "Bio Changed"));
+  u("#change-nsfw").handle("submit", sendRequest("#change-nsfw-button", "Change NSFW", "NSFW Changed"));
 </script>
 
 </html>
