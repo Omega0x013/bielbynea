@@ -11,7 +11,9 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
 	<script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
 	<style>
-		[hidden] { display: none !important; }
+		[hidden] {
+			display: none !important;
+		}
 	</style>
 </head>
 
@@ -53,12 +55,12 @@
 <script>
 	const id = window.location.toString().split("/").slice(-1).pop();
 	u("#comment").handle("submit", (e) => fetch("/post/" + id, {
-      method: 'POST',
-	  body: u(e.target).serialize(),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    })
+		method: 'POST',
+		body: u(e.target).serialize(),
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		}
+	})
 		.then(() => window.location.reload())
 	);
 
@@ -76,19 +78,19 @@
 	}
 
 	const postData = fetch('/post/' + id)
-	.then(doc => doc.json())
-	.then(data => {
-		u("#title").html(data.title);
-		u("#body").html(data.body);
-		return data;
-	});
+		.then(doc => doc.json())
+		.then(data => {
+			u("#title").html(data.title);
+			u("#body").html(data.body);
+			return data;
+		});
 
 	fetch('/comment/' + id)
-	.then(doc => doc.json())
-	.then(data => {
-		if (!data.error) u("#comments").append((comment) => `<tr><td><strong>${comment.author._path.segments[1]}</strong></td><td>${comment.body}</td></tr>`, data);
-		else u("#comments").append("<tr><td><i>No Comments</i></td></tr>");
-	})
+		.then(doc => doc.json())
+		.then(data => {
+			if (!data.error) u("#comments").append((comment) => `<tr><td><strong>${comment.author._path.segments[1]}</strong></td><td>${comment.body}</td></tr>`, data);
+			else u("#comments").append("<tr><td><i>No Comments</i></td></tr>");
+		})
 </script>
 
 </html>
