@@ -48,6 +48,8 @@
 		u("#account").html(cookies.username);
 	}
 
+	// Fetch and render the posts from a search without criteria other than
+	// whether or not the user permits NSFW content.
 	fetch('/search?nsfw=' + cookies.nsfw ?? "false", {
 		headers: {
 			"Accept": "application/json"

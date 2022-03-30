@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
 	<script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
 	<style>
+		/* Picnic CSS's styling makes submit button visible even while hidden, so I force the
+		effectiveness of the hidden attribute using !important */
 		[hidden] {
 			display: none !important;
 		}
@@ -53,7 +55,11 @@
 	</article>
 </body>
 <script>
+	// Work out the route under which we are operating
 	const id = window.location.toString().split("/").slice(-1).pop();
+
+	// When the user submits the form, send the form to the backend, then
+	// once the server has processed the request, reload the page to see the changes.
 	u("#comment").handle("submit", (e) => fetch("/post/" + id, {
 		method: 'POST',
 		body: u(e.target).serialize(),

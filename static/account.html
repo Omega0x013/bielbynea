@@ -170,6 +170,7 @@
 
   // This function returns a closure that makes the request when called
   const sendRequest = (target, original, success) => async e => {
+    // generate the form-urlencoded body and 
     const body = u(e.target).serialize() + "&action=set";
     const data = await fetch('/account', {
       method: 'POST', body,

@@ -71,22 +71,31 @@ export default {
     res.type("application/json");
     switch (req.body.action) {
       case "login":
+        // The action is to log in
         if (req.body.username && req.body.password) {
+          // The request contains the correct form data
           try {
+            // SELECT * FROM users WHERE username == "?";
             const data = await db.users.doc(req.body.username).get().then(
               (doc) => doc.data(),
             );
+            // make a hash from the password salted by the username
             const hash = crypto.createHash("sha256").update(
               req.body.username + req.body.password,
             ).digest("base64");
+            // the user has a correct hash
             if (data.hash == hash) {
+              // make a new token
               const token = uuid4();
+              // set the browser cookies to save the data on the client side
               res.cookie("username", req.body.username);
               res.cookie("token", token);
               res.cookie("nsfw", data.nsfw);
               res.cookie("moderator", data.moderator);
-              res.status(200).json({ message: "success" });
+              // update the firestore with the new session token
               await db.users.doc(req.body.username).update({ token: token });
+              // send the success message to the button
+              res.status(200).json({ message: "success" });
             } else {
               res.status(400).json({ error: "invalid-login" });
             }
@@ -100,6 +109,9 @@ export default {
         break;
       case "create":
         /**
+         * Fulfils objective 1
+         */
+        /**
          * ACTION create
          * Create a new account
          * {
@@ -108,40 +120,55 @@ export default {
          *    password2
          * }
          */
+
+        // verify that the body contains the requisite information
         if (
           req.body && req.body.username && req.body.password1 &&
           req.body.password2
         ) {
           try {
+            // check if a row with the same username exists
+            // SELECT * FROM users WHERE username == "?";
             const doc = db.users.doc(req.body.username);
             if (!await doc.get().then((doc) => doc.exists)) {
-              const hash = crypto.createHash("sha256").update(
-                req.body.username + req.body.password1,
-              ).digest("base64");
-              const token = uuid4();
-              const bio = req.body.bio
-                ? req.body.bio.replace(/&/g, "&amp;")
-                  .replace(/</g, "&lt;")
-                  .replace(/>/g, "&gt;")
-                  .replace(/"/g, "&quot;")
-                  .replace(/'/g, "&#039;")
-                  .replace("\n", "<br>")
-                : "No bio provided";
+              // check if the passwords match (also happens on frontend, this is backup)
+              if (req.body.password1 == req.body.password2) {
+                // generate the user's hash
+                const hash = crypto.createHash("sha256").update(
+                  req.body.username + req.body.password1,
+                ).digest("base64");
+                // generate the user's token
+                const token = uuid4();
+                // sanitise the user's bio
+                const bio = req.body.bio
+                  ? req.body.bio.replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;")
+                    .replace("\n", "<br>")
+                  : "No bio provided";
 
-              res.cookie("username", req.body.username);
-              res.cookie("token", token);
-              res.cookie("nsfw", false);
-              res.cookie("moderator", false);
-              res.status(200).json({ message: "success" });
+                // set cookies for browser
+                res.cookie("username", req.body.username);
+                res.cookie("token", token);
+                res.cookie("nsfw", false);
+                res.cookie("moderator", false);
 
-              await doc.set({
-                hash: hash,
-                bio: bio,
-                token: token,
-                nsfw: false,
-                moderator: false,
-                points: 3,
-              });
+                // set row in firestore
+                await doc.set({
+                  hash: hash,
+                  bio: bio,
+                  token: token,
+                  nsfw: false,
+                  moderator: false,
+                  points: 3,
+                });
+
+                res.status(200).json({ message: "success" });
+              } else {
+                res.status(401).json({ error: "password-mismatch" });
+              }
             } else {
               res.status(401).json({ error: "user-exists" });
             }
@@ -164,6 +191,7 @@ export default {
          */
         if (req.cookies.username && req.cookies.token) {
           try {
+            // verify user
             const data = await db.users.doc(req.cookies.username).get().then(
               (doc) => doc.data(),
             );
@@ -171,6 +199,7 @@ export default {
               if (req.body) {
                 const fields = {};
                 // They are changing NSFW
+                // only if they are trying to set the NSFW should it be updated
                 if (
                   req.body.nsfw
                 ) {
@@ -178,17 +207,20 @@ export default {
                 }
 
                 // They are changing their password
+                // verify that passwords are not null and are the same
                 if (
                   req.body.password1
                 ) {
                   if (req.body.password1 == req.body.password2) {
+                    // generate hash from the new password
                     const newHash = crypto.createHash("sha256").update(
                       req.cookies.username + req.body.password1,
                     );
+                    // check if the hashes are the same
                     if (newHash != data.hash) {
                       fields["hash"] = newHash;
                     } else {
-                      res.status(400).json({ error: "invalid-details" });
+                      res.status(400).json({ error: "same-password" });
                     }
                   } else {
                     res.status(400).json({ error: "invalid-details" });
@@ -197,6 +229,7 @@ export default {
 
                 // They are changing their bio
                 if (req.body.bio) {
+                  // sanitise bio
                   fields["bio"] = req.body.bio
                     .replace(/&/g, "&amp;")
                     .replace(/</g, "&lt;")
@@ -208,6 +241,7 @@ export default {
 
                 // If it fails they've made a mistake
                 try {
+                  // update the row with the new fields
                   await db.users.doc(req.cookies.username).update(fields);
                   res.status(200).json({ message: "success" });
                 } catch (e) {
@@ -226,24 +260,6 @@ export default {
           res.status(401).json({ error: "invalid-credentials" });
         }
         break;
-      case "refresh":
-        if (req.cookies.username && req.cookies.token) {
-          try {
-            const data = await db.users.doc(req.cookies.username).get().then(
-              (doc) => doc.data(),
-            );
-            if (data.token == req.cookies.token) {
-              res.cookie("nsfw", data.nsfw);
-              res.cookie("moderator", data.moderator);
-            }
-          } catch {
-            res.status(401).json({ error: "invalid-credentials" });
-          }
-        } else {
-          res.status(401).json({ error: "invalid-credentials" });
-        }
-      default:
-        res.status(400).json({ error: "invalid-action" });
     }
   },
 };

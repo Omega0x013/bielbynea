@@ -11,14 +11,14 @@ export default {
   get: async (req, res) => {
     if (req.accepts("html")) {
       /**
-       * It's a browser
+       * It's a browser, send the HTML page for the user to view
        */
       res.status(200).sendFile(
         path.join(path.resolve() + "/static/search.html"),
       );
     } else if (req.accepts("json")) {
       /**
-       * It's the JS
+       * It's the JS frontend, generate and send the JSON
        */
 
       // Don't show removed posts
@@ -51,7 +51,10 @@ export default {
       // Order results
       query = query.orderBy("created", "desc");
 
+      // Make the query
       const result = await query.get();
+
+      // Check that the query didn't throw an error, if it didn't send it to the user.
       if (!result.empty) {
         res.status(200).json(
           await result.docs.map((doc) =>

@@ -7,17 +7,22 @@
 export default {
   get: async (req, res) => {
     try {
+      // SELECT * FROM comments WHERE post == "?";
       const query = await db.comments.where(
         "post",
         "==",
         db.posts.doc(req.params.id),
       ).orderBy("created", "desc").get();
+
       if (!query.empty) {
+        // Valid result, send it on
         res.status(200).json(query.docs.map((doc) => doc.data()));
       } else {
+        // No result, send error
         res.status(400).json({ error: "result-empty" });
       }
     } catch (e) {
+      // Invalid parameters, send error
       console.error(e.message);
       res.status(400).json({ error: "invalid-target" });
     }

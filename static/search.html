@@ -61,6 +61,8 @@
 		u("#nsfw").attr("value", cookies.nsfw);
 	}
 
+	// Fetch post data from the backend based on the route query, and
+	// convert the JSON response into HTML and add it to the DOM.
 	fetch(window.location.toString(), {
 		headers: {
 			"Accept": "application/json"
